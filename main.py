@@ -1,5 +1,5 @@
 import numpy as np
-
+from plotting import plot_ber
 
 number_of_bits = 20
 rng = np.random.default_rng(seed=42)
@@ -72,3 +72,5 @@ for noise_level in noise_levels:
         f"Errors: {errors} | "
         f"BER: {error_rate:.4f}"
     )
+
+plot_ber(noise_levels, ber_results)
