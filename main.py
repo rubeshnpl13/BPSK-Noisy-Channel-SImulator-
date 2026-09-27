@@ -1,16 +1,28 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import numpy as np
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+number_of_bits = 20
+rng = np.random.default_rng(seed=42)
 
+transmitted_bits = rng.integers(0, 2, size=number_of_bits)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+print("Transmitted bits:", transmitted_bits)
+print("Number of bits:", len(transmitted_bits))
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+transmitted_symbols = 2 * transmitted_bits - 1
+
+print("BPSK symbols:", transmitted_symbols)
+print("Number of symbols:", len(transmitted_symbols))
+
+noise_std = 0.5
+
+noise = rng.normal(
+    loc=0.0,
+    scale=noise_std,
+    size=number_of_bits
+)
+
+received_symbols = transmitted_symbols + noise
+
+print("Noise:", np.round(noise, 2))
+print("Received symbols:", np.round(received_symbols, 2))
