@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 from plotting import plot_ber
 from simulation import BPSKTransmitter, NoisyChannel, BPSKReceiver
 
@@ -69,4 +69,23 @@ for noise_level in noise_levels:
         f"BER: {error_rate:.4f}"
     )
 
-plot_ber(noise_levels, ber_results)
+print("\n--- Simulated vs. expected BER ---")
+
+expected_ber_results = []
+
+for noise_level, simulated_ber in zip(noise_levels, ber_results):
+    expected_ber = 0.5 * math.erfc(
+        1 / (math.sqrt(2) * noise_level)
+    )
+    expected_ber_results.append(expected_ber)
+
+    print(
+        f"Noise std: {noise_level:.1f} | "
+        f"Simulated BER: {simulated_ber:.6f} | "
+        f"Expected BER: {expected_ber:.6f}"
+    )
+plot_ber(
+    noise_levels,
+    ber_results,
+    expected_ber_results
+)
